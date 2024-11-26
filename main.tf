@@ -30,7 +30,7 @@ resource "aws_instance" "public" {
 }
 
 resource "aws_security_group" "allow_ssh" {
-  name        = "${var.name}-terraform-security-group" #Security group name, e.g. jazeel-terraform-security-group
+  name_prefix = "${var.name}-terraform-security-group" #Security group name, e.g. jazeel-terraform-security-group
   description = "Allow SSH inbound"
   vpc_id      = "${var.vpc_id}"  #VPC ID (Same VPC as your EC2 subnet above), E.g. vpc-xxxxxxx
   lifecycle {
