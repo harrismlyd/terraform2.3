@@ -6,3 +6,7 @@ terraform apply -var="name=harris" -var="vpc_id=vpc-067f3ab097282bc4d" -var="sub
 
 # apply using tfvars file
 terraform apply -var-file=dev.tfvars
+
+# show outputs
+terraform apply at least once
+terraform output
