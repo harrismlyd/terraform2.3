@@ -20,10 +20,22 @@ locals {
   department = "marketing"
 }
 
+data "aws_subnets" "public" {
+  filter {
+    name = "vpc-id"
+    values = [var.vpc_id]
+  }
+  filter {
+    name = "tag:Name"
+    values = ["public-*"]
+  }
+}
+
 resource "aws_instance" "public" {
   ami                         = "ami-04c913012f8977029"
   instance_type               = "t2.micro"
-  subnet_id                   = "${var.subnet_id}"  #Public Subnet ID, e.g. subnet-xxxxxxxxxxx
+  #subnet_id                  = "${var.subnet_id}"  #Public Subnet ID, e.g. subnet-xxxxxxxxxxx
+  subnet_id                   = data.aws_subnets.public.ids[0]
   associate_public_ip_address = true
   #key_name                    = "harris-key-pair" #Change to your keyname, e.g. jazeel-key-pair
   vpc_security_group_ids = [aws_security_group.allow_ssh.id]
