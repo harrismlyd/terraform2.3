@@ -33,6 +33,9 @@ resource "aws_security_group" "allow_ssh" {
   name        = "${var.name}-terraform-security-group" #Security group name, e.g. jazeel-terraform-security-group
   description = "Allow SSH inbound"
   vpc_id      = "${var.vpc_id}"  #VPC ID (Same VPC as your EC2 subnet above), E.g. vpc-xxxxxxx
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_vpc_security_group_ingress_rule" "allow_tls_ipv4" {
